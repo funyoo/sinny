@@ -1,9 +1,9 @@
 from aip import AipSpeech
 
 # 百度需要的参数
-APP_ID = 'xxxxxxxx'
-API_KEY = 'xxxxxxxxxxxxxxx'
-SECRET_KEY = 'xxxxxxxxxxxxxxxxxxxxxx'
+APP_ID = 'xxxxxx'
+API_KEY = 'xxxxxxxxx'
+SECRET_KEY = 'xxxxxxxxxxxxxxxxxxx'
 
 
 def read():
