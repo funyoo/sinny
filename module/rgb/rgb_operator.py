@@ -5,11 +5,11 @@ rgb灯光操作者
 这里用两个标志FLAG和CONFIRM来避免产生大量线程造成的线程泄露
 @author: funyoo
 """
-from module.rgb_module import rgb_color
+from module.rgb import rgb_color
 import time
-from module.rgb_module.pixels import Pixels, pixels
-from module.rgb_module.alexa_led_pattern import AlexaLedPattern
-from module.rgb_module.google_home_led_pattern import GoogleHomeLedPattern
+from module.rgb.pixels import Pixels, pixels
+from module.rgb.alexa_led_pattern import AlexaLedPattern
+from module.rgb.google_home_led_pattern import GoogleHomeLedPattern
 import threading
 
 pixels.pattern = GoogleHomeLedPattern(show=pixels.show)
