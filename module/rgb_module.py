@@ -26,7 +26,7 @@ class Rgb(BaseModule):
 
     def startup(self):
         global START, SERVER
-        server.bind(IP_PORT)
+        SERVER.bind(IP_PORT)
         START = True
         workingThread = threading.Thread(target=self.working, args=())
         workingThread.start()
@@ -44,9 +44,16 @@ class Rgb(BaseModule):
     def working(self):
         global BUFFSIZE, START, COMMAND_ID
         while START:
-            commandStr, client_addr = server.recvfrom(BUFFSIZE)
+            commandStr, client_addr = SERVER.recvfrom(BUFFSIZE)
             commandStr = commandStr.decode("utf-8")
-            print("收到来自 " + str(client_addr) + " 的指令: " + datastr + " ", time.time())
+            print("收到来自 " + str(client_addr) + " 的指令: " + commandStr + " ", time.time())
+
+            if "command:" in commandStr:
+                # 系统命令，非语音
+                clock = data[0].replace("command:", "")
+                rgb_operator.openRgbByRGB([255, 255, 255], clock)
+                continue
+
             # 取命令编号
             data = str(commandStr).split("-")
             id = int(data[1])
@@ -61,10 +68,6 @@ class Rgb(BaseModule):
             if "关" in data[0]:
                 rgb_operator.close()
                 continue
-            if "command:" in data[0]:
-                # 系统命令，非语音
-                clock = data[0].replace("command:", "")
-                rgb_operator.openRgbByRGB([255, 255, 255], clock)
             # 都不是TODO
 
 
