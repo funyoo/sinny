@@ -48,7 +48,7 @@ def record():
     global CLIENT
     print("开始录音:", time.time())
     p = pyaudio.PyAudio()
-    CLIENT.sendto("command:2", ("127.0.0.1", 9001))
+    CLIENT.sendto("command:2".encode("utf-8"), ("127.0.0.1", 9001))
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
                     rate=RATE,
