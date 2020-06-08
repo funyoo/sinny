@@ -1,37 +1,54 @@
-# 通过speaker发送命令至各功能
+"""
+commander 即指挥者，指令处理中心
+负责处理和发送指令
+"""
 import socket
 import wave
 import reader
 import pyaudio
-import logging
+import time
+import re
+import module_register
 
 BUFFSIZE = 1024
 
-client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM);
+# 命令发送客户端
+CLIENT = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
-RECORD_SECONDS = 3
+RECORD_SECONDS = 2
 WAVE_OUTPUT_FILENAME = "command.wav"
+
+# 命令列表
+COMMANDS_LIST = module_register.commands_list
+# 命令标号，避免一条命令被同一个服务多次执行
+COMMAND_ID = 0
 
 
 def command():
-    global client
+    global CLIENT, COMMAND_ID
     # 录音
     record()
     # 解析
-    msg = reader.read()[0]
-    # TODO 回复指示
-    # TODO 选择成员下命令
-    ip_port = ('127.0.0.1', 9001)
-    client.sendto(msg.encode('utf-8'), ip_port)
+    msg = reader.read()
+    print("解析到语音命令：" + msg + " ", time.time())
+    COMMAND_ID += 1
+    msg = msg + "-" + str(COMMAND_ID)
+    # 选择成员下命令
+    print(COMMANDS_LIST)
+    for soldier in COMMANDS_LIST:
+        if match(soldier[0], msg):
+            CLIENT.sendto(msg.encode("utf-8"), soldier[1])
 
 
 def record():
-    logging.info("开始录音:")
+    global CLIENT
+    print("开始录音:", time.time())
     p = pyaudio.PyAudio()
+    CLIENT.sendto("command:2", ("127.0.0.1", 9001))
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
                     rate=RATE,
@@ -41,7 +58,6 @@ def record():
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = stream.read(CHUNK)
         frames.append(data)
-    logging.info("录音结束")
     stream.stop_stream()
     stream.close()
     p.terminate()
@@ -52,11 +68,21 @@ def record():
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+    print("录音已生成文件 ", time.time())
 
 
 def close():
-    client.close()
+    global CLIENT
+    CLIENT.close()
+
+
+# 正则表达式匹配
+def match(pattern, str):
+    pattern = re.compile(r'(' + pattern + ')')
+    m = pattern.match(str)
+    return m
 
 
 if __name__ == '__main__':
+    module_register.startup()
     command()
