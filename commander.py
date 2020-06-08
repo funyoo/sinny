@@ -33,7 +33,7 @@ def command():
     # 录音
     record()
     # 解析
-    msg = reader.read()
+    msg = reader.readOnLine()
     print("解析到语音命令：" + msg + " ", time.time())
     COMMAND_ID += 1
     msg = msg + "-" + str(COMMAND_ID)
