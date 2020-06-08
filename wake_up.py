@@ -17,22 +17,19 @@ def startup(model):
     global detector
     # 初始化探测器 参数：唤醒词文件 灵敏度
     detector = snowboydecoder.HotwordDetector(model, sensitivity=0.5)
-    # 中断信号
-    signal.signal(signal.SIGINT, signal_handle)
     print('Listening... Press Ctrl+C to exit')
     # main loop
     start()
 
 
-# 定义信号处理函数 参数：用来识别信号 进程栈状态
-def signal_handle(signal, frame):
-    global interrupted
-    interrupted = True
-
-
 def interrupt_callback():
     global interrupted
     return interrupted
+
+
+def setInterrupt(value):
+    global interrupted
+    interrupted = bool(value)
 
 
 # 被唤醒回调函数
