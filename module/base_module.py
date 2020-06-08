@@ -6,6 +6,7 @@ ip_port：获取功能模块地址
 startup: 开启服务
 shutdown：关闭
 commands: 服务识别关键信息
+working: 服务方法
 """
 
 import abc
@@ -27,4 +28,8 @@ class BaseModule(object):
 
     @abc.abstractmethod
     def commands(self):
+        pass
+
+    @abc.abstractmethod
+    def working(self):
         pass
