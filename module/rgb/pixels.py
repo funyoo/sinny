@@ -1,5 +1,5 @@
 
-import apa102
+from module.rgb import apa102
 import time
 import threading
 from gpiozero import LED
@@ -8,8 +8,9 @@ try:
 except ImportError:
     import Queue as Queue
 
-from alexa_led_pattern import AlexaLedPattern
-from google_home_led_pattern import GoogleHomeLedPattern
+from module.rgb.alexa_led_pattern import AlexaLedPattern
+from module.rgb.google_home_led_pattern import GoogleHomeLedPattern
+
 
 class Pixels:
     PIXELS_N = 12
@@ -18,7 +19,7 @@ class Pixels:
         self.pattern = pattern(show=self.show)
 
         self.dev = apa102.APA102(num_led=self.PIXELS_N)
-        
+
         self.power = LED(5)
         self.power.on()
 
