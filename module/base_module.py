@@ -7,6 +7,8 @@ startup: 开启服务
 shutdown：关闭
 commands: 服务识别关键信息
 working: 服务方法
+
+@author: funyoo
 """
 
 import abc
