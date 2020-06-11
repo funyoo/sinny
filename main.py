@@ -1,5 +1,8 @@
 """
 项目启动主程序
+
+@author: funyoo
+
 """
 
 import sys
@@ -17,7 +20,10 @@ if len(sys.argv) == 1:
 # 定义信号处理函数 参数：用来识别信号 进程栈状态
 def signal_handle(signal, frame):
     wake_up.setInterrupt(True)
-
+    wake_up.stop()
+    while wake_up.STOP is False:
+        continue
+    sys.exit(-1)
 
 # 中断信号
 signal.signal(signal.SIGINT, signal_handle)
