@@ -1,6 +1,8 @@
 """
 commander 即指挥者，指令处理中心
 负责处理和发送指令
+
+@author: funyoo
 """
 import socket
 import wave
@@ -19,7 +21,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
-RECORD_SECONDS = 2
+RECORD_SECONDS = 3
 WAVE_OUTPUT_FILENAME = "command.wav"
 
 # 命令列表
@@ -30,6 +32,7 @@ COMMAND_ID = 0
 
 def command():
     global CLIENT, COMMAND_ID
+    beforeRecord()
     # 录音
     record()
     # 解析
@@ -48,7 +51,6 @@ def record():
     global CLIENT
     print("开始录音:", time.time())
     p = pyaudio.PyAudio()
-    CLIENT.sendto("command:2".encode("utf-8"), ("127.0.0.1", 9001))
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
                     rate=RATE,
@@ -77,10 +79,17 @@ def close():
 
 
 # 正则表达式匹配
-def match(pattern, str):
+def match(pattern, strs):
     pattern = re.compile(r'(' + pattern + ')')
-    m = pattern.match(str)
+    m = pattern.match(strs)
     return m
+
+
+# 录音前
+def beforeRecord():
+    CLIENT.sendto("command:3-0".encode("utf-8"), ("127.0.0.1", 9001))
+    #CLIENT.sendto("command:wake_up-0".encode("utf-8"), ("127.0.0.1", 9002))
+    CLIENT.sendto("command:wozai-0".encode("utf-8"), ("127.0.1.1", 9003))
 
 
 if __name__ == '__main__':
