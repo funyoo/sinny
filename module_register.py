@@ -1,3 +1,10 @@
+"""
+服务注册中心
+负责扫描 module 下的各服务，并通过反射启动服务
+
+@author: funyoo
+"""
+
 import importlib
 import os
 
