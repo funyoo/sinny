@@ -1,5 +1,7 @@
 """
-唤醒程序：通过 snowboy 唤醒
+唤醒程序：借助 snowboy 唤醒
+
+@author: funyoo
 """
 import sys
 
@@ -11,6 +13,7 @@ import commander
 
 interrupted = False
 detector = object
+STOP = False
 
 
 def startup(model):
@@ -53,6 +56,7 @@ def start():
 
 
 def stop():
-    global detector
+    global detector, STOP
     detector.terminate()
+    STOP = True
 
