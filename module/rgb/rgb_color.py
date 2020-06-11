@@ -1,5 +1,7 @@
 """
 常用RGB颜色表
+
+@author: funyoo
 """
 RGB_TABLE = {
     "红": [255, 0, 0],
