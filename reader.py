@@ -12,9 +12,9 @@ from aip import AipSpeech
 import speech_recognition as sr
 
 # 百度需要的参数
-APP_ID = '20193397'
-API_KEY = 'fzk019sk1FeSVgpfvz6j7C8k'
-SECRET_KEY = 'UW8Hh0WzdVb6TdAG20LIPkGdlhZVPSm4'
+APP_ID = 'xxxxxxxxxx'
+API_KEY = 'xxxxxxxxxxxxxxxxxx'
+SECRET_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxx'
 
 CLIENT = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
