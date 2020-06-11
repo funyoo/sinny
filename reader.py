@@ -4,15 +4,17 @@ reader: 读取者
 
 readOffLine: 离线识别
 readOnLine: 在线识别
+
+@author: funyoo
 """
 
 from aip import AipSpeech
 import speech_recognition as sr
 
 # 百度需要的参数
-APP_ID = 'xxxxxxxx'
-API_KEY = 'xxxxxxxxxxxxxx'
-SECRET_KEY = 'xxxxxxxxxxxxxxxxx'
+APP_ID = '20193397'
+API_KEY = 'fzk019sk1FeSVgpfvz6j7C8k'
+SECRET_KEY = 'UW8Hh0WzdVb6TdAG20LIPkGdlhZVPSm4'
 
 CLIENT = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
 
