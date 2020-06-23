@@ -24,9 +24,9 @@ def sysCommand(command):
     if sys_command == "wozai":
         voice_player.play(sys_voice_list.WO_ZAI)
     if sys_command == "hao":
-        voice_player.playOnThread(sys_voice_list.HAO)
+        voice_player.play(sys_voice_list.HAO)
     if sys_command == "err":
-        voice_player.playOnThread(sys_voice_list.ERR)
+        voice_player.play(sys_voice_list.ERR)
 
 
 # 用户命令处理

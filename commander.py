@@ -41,10 +41,15 @@ def command():
     COMMAND_ID += 1
     msg = msg + "-" + str(COMMAND_ID)
     # 选择成员下命令
-    print(COMMANDS_LIST)
+    has = False
     for soldier in COMMANDS_LIST:
         if match(soldier[0], msg):
+            has = True
             CLIENT.sendto(msg.encode("utf-8"), soldier[1])
+    if has:
+        CLIENT.sendto("command:hao-0".encode("utf-8"), ("127.0.0.1", 9003))
+    else:
+        CLIENT.sendto("command:err-0".encode("utf-8"), ("127.0.0.1", 9003))
 
 
 def record():
@@ -89,7 +94,7 @@ def match(pattern, strs):
 def beforeRecord():
     CLIENT.sendto("command:3-0".encode("utf-8"), ("127.0.0.1", 9001))
     #CLIENT.sendto("command:wake_up-0".encode("utf-8"), ("127.0.0.1", 9002))
-    CLIENT.sendto("command:wozai-0".encode("utf-8"), ("127.0.1.1", 9003))
+    CLIENT.sendto("command:wozai-0".encode("utf-8"), ("127.0.0.1", 9003))
 
 
 if __name__ == '__main__':
